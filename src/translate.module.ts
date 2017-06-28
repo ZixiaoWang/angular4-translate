@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateService } from './translate.service';
 import { TranslateDirective } from './translate.directive';
 import { TranslatePipe } from './translate.pipe';
+import { TranslateConfig } from './translate.config'
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ export class TranslateModule {
     return {
       ngModule: TranslateModule,
       providers:[ 
-        { provide: TranslateService, useValue: new TranslateService(config) }
+        { provide: TranslateConfig, useValue: config },
+        { provide: TranslateService, useClass: TranslateService }
        ]
     }
   }

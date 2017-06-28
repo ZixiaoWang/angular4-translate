@@ -1,14 +1,14 @@
 import { Injectable, Inject } from '@angular/core';
 import * as flat from 'flat';
+import { TranslateConfig } from './translate.config';
 
 @Injectable()
 export class TranslateService {
-
-  private config: any = {};
+    
   private default: string = 'en';
   private current: string = this.default;
 
-  constructor( config: any ){
+  constructor( @Inject(TranslateConfig) private config: TranslateConfig ){
     for(let key in config){
       Object.defineProperty(this.config, key, { value: flat(config[key]) } )
     }
