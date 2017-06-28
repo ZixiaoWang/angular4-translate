@@ -11,6 +11,7 @@ var common_1 = require("@angular/common");
 var translate_service_1 = require("./translate.service");
 var translate_directive_1 = require("./translate.directive");
 var translate_pipe_1 = require("./translate.pipe");
+var translate_config_1 = require("./translate.config");
 var TranslateModule = TranslateModule_1 = (function () {
     function TranslateModule() {
     }
@@ -18,7 +19,8 @@ var TranslateModule = TranslateModule_1 = (function () {
         return {
             ngModule: TranslateModule_1,
             providers: [
-                { provide: translate_service_1.TranslateService, useValue: new translate_service_1.TranslateService(config) }
+                { provide: translate_config_1.TranslateConfig, useValue: config },
+                { provide: translate_service_1.TranslateService, useClass: translate_service_1.TranslateService }
             ]
         };
     };
