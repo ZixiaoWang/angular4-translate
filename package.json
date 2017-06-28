@@ -1,0 +1,33 @@
+{
+  "name": "angular2-translate",
+  "version": "1.0.0",
+  "description": "A translation module for Angular2/Angular4 projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZixiaoWang/angular2-translate.git"
+  },
+  "keywords": [
+    "Angular",
+    "Translate",
+    "JavaScript",
+    "TypeScript"
+  ],
+  "author": "Jacky Wang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZixiaoWang/angular2-translate/issues"
+  },
+  "homepage": "https://github.com/ZixiaoWang/angular2-translate#readme",
+  "dependencies": {
+    "@angular/common": "^4.2.4",
+    "@angular/core": "^4.2.4",
+    "flat": "^2.0.1",
+    "rxjs": "^5.4.1",
+    "typescript": "^2.4.1",
+    "zone.js": "^0.8.12"
+  }
+}
