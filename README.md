@@ -106,3 +106,6 @@ Import ```TranslateModule``` and ```TranslateModule.forRoot(Config)```
 
 ### Effect
 ![Final Effect](./translate.gif)
+
+### TODO LIST
+1. Support Parameters in translating sentences;
