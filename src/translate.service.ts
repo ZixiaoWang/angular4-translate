@@ -38,6 +38,7 @@ export class TranslateService {
     }
   }
 
+
   private searchByKey(key: string){
     if( 
       this.config[this.current] &&
