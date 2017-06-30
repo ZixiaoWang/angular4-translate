@@ -1,14 +1,15 @@
 import { Injectable, Inject } from '@angular/core';
 import * as flat from 'flat';
-import { TranslateConfig } from './translate.config';
+import { Observable, Observer, Subject } from 'rxjs/Rx';
 
 @Injectable()
 export class TranslateService {
-    
+
+  private config: any = {};
   private default: string = 'en';
   private current: string = this.default;
 
-  constructor( @Inject(TranslateConfig) private config: TranslateConfig ){
+  constructor( config: any ){
     for(let key in config){
       Object.defineProperty(this.config, key, { value: flat(config[key]) } )
     }
@@ -38,6 +39,14 @@ export class TranslateService {
     }
   }
 
+  public instanceFromObservable(key: string, param?: any): Observable<string>{
+    let observer = Observable.create( _observer => {
+      setTimeout(()=>{
+        _observer.next(this.instance(key, param));
+      }, 10000)
+    });
+    return observer;
+  }
 
   private searchByKey(key: string){
     if( 
@@ -52,10 +61,25 @@ export class TranslateService {
   private searchByKeyWithParams(key: string, param: any){
     let content = this.searchByKey(key);
     let parameter = param;
-    if( !/{{.*}}/gi.test(content) ){
-      return content;
+    let expressionRegex = new RegExp(/{{[^{}]*}}/,'gi');
+
+    let matchResult = content.match(expressionRegex);
+
+    let paramFactory = function(expression: string){
+      let varName = expression.replace(/{{\s*([\w$]+)\s*}}/g, '$1');
+      if(parameter[varName]){
+        return parameter[varName];
+      }else{
+        return expression;
+      }
+    }
+
+    if( matchResult ){
+      return content.replace(expressionRegex, (matchItem)=>{
+        return paramFactory(matchItem);
+      });
     }else{
-      return 'has params'
+      return content;
     }
   }
 }
