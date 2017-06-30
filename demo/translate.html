@@ -1,0 +1,21 @@
+<div class="container">
+
+  <h4>Use Pipe</h4>
+  <div>{{ 'PARAMS.EVENT' | translate }}</div>
+  <div>{{ 'PHRASE' | translate: { event: 'shopping', location: 'mall', time: 'Sunday' } }}</div>
+  <div>{{ 'PHRASE' | translate: param }}</div>
+  <hr>
+
+  <h4>Use Directive</h4>
+  <div translate="PARAMS.LOCATION"></div>
+  <div translate="PHRASE" [translate-param]="{ event: 'Reading', location: 'Library', time: 'Friday' }"></div>
+  <div translate="PHRASE" [translate-param]="param"></div>
+  <hr>
+
+  <h4>Use Control Code</h4>
+  <div>{{ translatedPhrase }}</div>
+  <hr>
+
+  <button (click)="toggleLanguage()">Toggle Lanuage</button>
+
+</div>

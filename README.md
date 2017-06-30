@@ -2,33 +2,31 @@
 A translate module for Angular2/Angular4 Projects.
 
 ### How to install it?
-``` npm install --save angular4-translate ```  
-or   
-``` npm install --save https://github.com/ZixiaoWang/angular2-translate.git ```
+``` npm install --save angular4-translate ```
 
 ### How to use it?
-Import ```TranslateModule``` and ```TranslateModule.forRoot(Config)```
+Import ```TranslateModule``` and ```TranslateModule.forRoot(Dictionary)```
 
 **app.module.ts**  
 ```javascript
     import { TranslateModule, TranslateService } from 'angular4-translate';
 
     const dictionary: any = {
-        en:{
-            GREETING: 'Hello World',
-            MESSAGE: {
-                QUOTE: 'Great power comes great responsibility',
-                SAIDBYWHOM: ' -- Peter Parker'
-            },
-            BUTTON: '点击我切换到简体中文'
+        en: {
+            PHRASE: 'I was {{ event }} in {{ location }} at {{ time }}',
+            PARAMS: {
+                EVENT: 'studying',
+                LOCATION: 'library',
+                TIME:'saturday'
+            }
         },
-        zh:{
-            GREETING: '世界，你好',
-            MESSAGE: {
-                QUOTE: '能力越大，责任越大',
-                SAIDBYWHOM: ' -- 小蜘蛛'
-            },
-            BUTTON: 'Click me to switch to English'
+        zh: {
+            PHRASE: '我{{ time }}在{{ location }}{{ event }}',
+            PARAMS: {
+                EVENT: '学习',
+                LOCATION: '图书馆',
+                TIME: '礼拜六'
+            }
         }
     };
 
@@ -52,54 +50,56 @@ Import ```TranslateModule``` and ```TranslateModule.forRoot(Config)```
     }
 ```
 
-**Any other component**  
+#### Use Pipe
+translate.html
+```html
+    <div>{{ 'PARAMS.EVENT' | translate }}</div> 
+    <div>{{ 'PHRASE' | translate: { event: 'shopping', location: 'mall', time: 'Sunday' } }}</div> 
+    <div>{{ 'PHRASE' | translate: params }}</div>
+```
+translate.ts
 ```javascript
-    import { Component } from '@angular/core';
+    export class TranslateComponent{
+        params: any = {
+            event: 'Having Dinner',
+            location: 'KFC',
+            time: 'Tuesday'
+        }
+    }
+```
+
+#### Use Directive
+translate.html
+```html
+    <div translate="PARAMS.LOCATION"></div>
+    <div translate="PHRASE" [translate-param]="{ event: 'reading', location: 'library', time: 'friday' }"></div>
+    <div translate="params"></div>
+```
+translate.ts
+```javascript
+    export class TranslateComponent{
+        params: any = {
+            event: 'Having Dinner',
+            location: 'KFC',
+            time: 'Tuesday'
+        }
+    }
+```
+
+#### Use Control Code
+translate.html
+```html
+    <h1>{{ translatedPhrase }}</h1>
+```
+translate.ts
+```javascript
     import { TranslateService } from 'angular4-translate';
 
-    @Component({
-        selector: 'my-component',
-        template: `
-            <div class="container">
+    export class TranslateComponent{
+        private translatedPhrase: string;
 
-                <!-- Use Pipe to translate -->
-                <div class="row">
-                    <h1>{{ 'GREETING' | translate }}</h1>
-                </div>
-
-                <!-- Use Directive to translate -->
-                <div class="row">
-                    <p translate="MESSAGE.QUOTE"></p>
-                </div>
-
-                <!-- Use Service to translate -->
-                <div class="row">
-                    <p>{{ translated }}
-                </div>
-            </div>
-
-            <hr>
-
-            <button (click)="toggleLanguage()">{{ 'BUTTON' | translate }}</button>
-        `,
-        styleUrl:[...]
-    })
-
-    export class MyComponnet {
-        private translated: string;
-        private count: number = 0;
-
-        constructor( private translate: TranslateService ){
-            this.translated = this.translate.instance('MESSAGE.SAIDBYWHOM');
-        }
-
-        toggleLanguage(){
-            let language = this.count % 2 === 0 ? 'en' : 'zh';
-
-            this.translate.use(language);
-            this.translated = this.translate.instance('MESSAGE.SAIDBYWHOM');
-
-            this.count ++;
+        constructor( private translateService: TranslateService ){
+            this.translatedPhrase = this.translateService.instance('PHRASE', { event: 'sleep', location: 'home', time: 'midnight' });
         }
     }
 ```
@@ -108,4 +108,5 @@ Import ```TranslateModule``` and ```TranslateModule.forRoot(Config)```
 ![Final Effect](./translate.gif)
 
 ### TODO LIST
-1. Support Parameters in translating sentences;
+1. ~~Support Parameters in translating sentences;~~
+2. Support NativeScript Projects;
