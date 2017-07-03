@@ -110,3 +110,6 @@ translate.ts
 ### TODO LIST
 1. ~~Support Parameters in translating sentences;~~
 2. Support NativeScript Projects;
+
+### License
+[MIT](https://opensource.org/licenses/MIT)
