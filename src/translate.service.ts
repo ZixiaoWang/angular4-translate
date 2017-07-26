@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TranslateConfig } from './translate.config';
 import * as flat from 'flat';
 import { Observable, Observer, Subject } from 'rxjs/Rx';
 
@@ -9,7 +10,7 @@ export class TranslateService {
   private default: string = 'en';
   private current: string = this.default;
 
-  constructor( config: any ){
+  constructor( @Inject(TranslateConfig) config: TranslateConfig ){
     for(let key in config){
       Object.defineProperty(this.config, key, { value: flat(config[key]) } )
     }
