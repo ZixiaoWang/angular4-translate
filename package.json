@@ -1,6 +1,6 @@
 {
   "name": "angular4-translate",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A translation module for Angular2/Angular4 projects.",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,6 @@
     "@types/node": "^8.0.4",
     "flat": "^2.0.1",
     "rxjs": "^5.4.1",
-    "typescript": "^2.4.1",
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
