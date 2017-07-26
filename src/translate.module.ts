@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TranslateService } from './translate.service';
 import { TranslateDirective } from './translate.directive';
 import { TranslatePipe } from './translate.pipe';
 import { TranslateConfig } from './translate.config'
@@ -18,9 +17,7 @@ import { TranslateConfig } from './translate.config'
     TranslateDirective,
     TranslatePipe
   ],
-  providers:[
-    TranslateService
-  ]
+  providers:[]
 })
 export class TranslateModule { 
   static forRoot(config: any): ModuleWithProviders{
