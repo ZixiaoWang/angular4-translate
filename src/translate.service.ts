@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { TranslateConfig } from './translate.config';
 import * as flat from 'flat';
 import { Observable, Observer, Subject } from 'rxjs/Rx';
