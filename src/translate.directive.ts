@@ -13,7 +13,12 @@ export class TranslateDirective implements DoCheck {
     private translate: TranslateService ){}
 
   ngDoCheck(){
-    this.elementref.nativeElement.innerText = this.translate.instance(this.lang, this.param);
+    let view = this.elementref.nativeElement;
+    if(view.innerText){
+      view.innerText = this.translate.instance(this.lang, this.param);
+    }else if(view.text){
+      view.text = this.translate.instance(this.lang, this.param);
+    }
   }
 
 }
