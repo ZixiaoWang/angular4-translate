@@ -10,7 +10,7 @@ export class TranslateDirective implements DoCheck {
 
   constructor( 
     private elementref: ElementRef, 
-    private translate: TranslateService ){}
+    @Inject(TranslateService) private translate: TranslateService ){}
 
   ngDoCheck(){
     let view = this.elementref.nativeElement;
