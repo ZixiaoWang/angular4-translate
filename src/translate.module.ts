@@ -17,6 +17,9 @@ import { TranslateConfig } from './translate.config'
   exports:[
     TranslateDirective,
     TranslatePipe
+  ],
+  providers:[
+    TranslateService
   ]
 })
 export class TranslateModule { 
@@ -24,8 +27,7 @@ export class TranslateModule {
     return {
       ngModule: TranslateModule,
       providers:[ 
-        { provide: TranslateConfig, useValue: config },
-        { provide: TranslateService, useClass: TranslateService }
+        { provide: TranslateConfig, useValue: config }
        ]
     }
   }
