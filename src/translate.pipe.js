@@ -16,7 +16,7 @@ var TranslatePipe = (function () {
         this.translate = translate;
     }
     TranslatePipe.prototype.transform = function (value, args) {
-        return this.translate.instance(value);
+        return this.translate.instance(value, args);
     };
     return TranslatePipe;
 }());

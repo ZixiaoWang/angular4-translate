@@ -8,16 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var flat = require("flat");
-var translate_config_1 = require("./translate.config");
+var Rx_1 = require("rxjs/Rx");
 var TranslateService = (function () {
     function TranslateService(config) {
-        this.config = config;
+        this.config = {};
         this.default = 'en';
         this.current = this.default;
         for (var key in config) {
@@ -48,6 +45,15 @@ var TranslateService = (function () {
             return this.searchByKey(key);
         }
     };
+    TranslateService.prototype.instanceFromObservable = function (key, param) {
+        var _this = this;
+        var observer = Rx_1.Observable.create(function (_observer) {
+            setTimeout(function () {
+                _observer.next(_this.instance(key, param));
+            }, 10000);
+        });
+        return observer;
+    };
     TranslateService.prototype.searchByKey = function (key) {
         if (this.config[this.current] &&
             this.config[this.current][key]) {
@@ -60,19 +66,31 @@ var TranslateService = (function () {
     TranslateService.prototype.searchByKeyWithParams = function (key, param) {
         var content = this.searchByKey(key);
         var parameter = param;
-        if (!/{{.*}}/gi.test(content)) {
-            return content;
+        var expressionRegex = new RegExp(/{{[^{}]*}}/, 'gi');
+        var matchResult = content.match(expressionRegex);
+        var paramFactory = function (expression) {
+            var varName = expression.replace(/{{\s*([\w$]+)\s*}}/g, '$1');
+            if (parameter[varName]) {
+                return parameter[varName];
+            }
+            else {
+                return expression;
+            }
+        };
+        if (matchResult) {
+            return content.replace(expressionRegex, function (matchItem) {
+                return paramFactory(matchItem);
+            });
         }
         else {
-            return 'has params';
+            return content;
         }
     };
     return TranslateService;
 }());
 TranslateService = __decorate([
     core_1.Injectable(),
-    __param(0, core_1.Inject(translate_config_1.TranslateConfig)),
-    __metadata("design:paramtypes", [translate_config_1.TranslateConfig])
+    __metadata("design:paramtypes", [Object])
 ], TranslateService);
 exports.TranslateService = TranslateService;
 //# sourceMappingURL=translate.service.js.map
