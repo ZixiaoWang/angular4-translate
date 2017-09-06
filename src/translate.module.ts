@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { TranslateDirective } from './translate.directive';
 import { TranslatePipe } from './translate.pipe';
-import { TranslateConfig } from './translate.config'
+import { TranslateConfig } from './translate.config';
+import { TranslateService } from './translate.service';
 
 @NgModule({
   imports: [
@@ -17,7 +18,9 @@ import { TranslateConfig } from './translate.config'
     TranslateDirective,
     TranslatePipe
   ],
-  providers:[]
+  providers:[
+    TranslateService
+  ]
 })
 export class TranslateModule { 
   static forRoot(config: any): ModuleWithProviders{

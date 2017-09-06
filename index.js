@@ -1,7 +1,8 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var translate_module_1 = require("./src/translate.module");
-exports.TranslateModule = translate_module_1.TranslateModule;
-var translate_service_1 = require("./src/translate.service");
-exports.TranslateService = translate_service_1.TranslateService;
+__export(require("./src/translate.service"));
+__export(require("./src/translate.module"));
 //# sourceMappingURL=index.js.map

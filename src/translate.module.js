@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var translate_service_1 = require("./translate.service");
 var translate_directive_1 = require("./translate.directive");
 var translate_pipe_1 = require("./translate.pipe");
 var translate_config_1 = require("./translate.config");
+var translate_service_1 = require("./translate.service");
 var TranslateModule = TranslateModule_1 = (function () {
     function TranslateModule() {
     }
@@ -19,8 +19,7 @@ var TranslateModule = TranslateModule_1 = (function () {
         return {
             ngModule: TranslateModule_1,
             providers: [
-                { provide: translate_config_1.TranslateConfig, useValue: config },
-                { provide: translate_service_1.TranslateService, useClass: translate_service_1.TranslateService }
+                { provide: translate_config_1.TranslateConfig, useValue: config }
             ]
         };
     };
@@ -38,6 +37,9 @@ TranslateModule = TranslateModule_1 = __decorate([
         exports: [
             translate_directive_1.TranslateDirective,
             translate_pipe_1.TranslatePipe
+        ],
+        providers: [
+            translate_service_1.TranslateService
         ]
     })
 ], TranslateModule);
