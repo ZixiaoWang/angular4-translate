@@ -34,7 +34,6 @@ Import ```TranslateModule``` and ```TranslateModule.forRoot(Dictionary)```
         declarations:[...],
         imports:[
             ...
-            TranslateModule,
             TransalteModule.forRoot(dictionary),
             ...
         ],

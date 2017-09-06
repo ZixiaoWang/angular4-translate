@@ -16,7 +16,7 @@ export class TranslateDirective implements DoCheck {
     let view = this.elementref.nativeElement;
     if(view.innerText){
       view.innerText = this.translate.instance(this.lang, this.param);
-    }else if(view.text){
+    }else if(view._isViewBase){
       view.text = this.translate.instance(this.lang, this.param);
     }
   }
