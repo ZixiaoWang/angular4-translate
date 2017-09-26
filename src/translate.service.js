@@ -29,6 +29,10 @@ var TranslateService = (function () {
             return this.current;
         }
     };
+    TranslateService.prototype.hasLanguage = function (key) {
+        var keySet = new Set(Object.keys(this.config));
+        return keySet.has(key);
+    };
     TranslateService.prototype.instance = function (key, param) {
         if (param) {
             return this.searchByKeyWithParams(key, param);
