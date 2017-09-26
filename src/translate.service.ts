@@ -10,9 +10,9 @@ export class TranslateService {
   private default: string = 'en';
   private current: string = this.default;
 
-  constructor( @Inject(TranslateConfig) config: TranslateConfig ){
-    for(let key in config){
-      Object.defineProperty(this.config, key, { value: flat(config[key]) } )
+  constructor( @Inject(TranslateConfig) private _config: TranslateConfig ){
+    for(let key in this._config){
+      Object.defineProperty(this.config, key, { value: flat(this._config[key]) } )
     }
   }
 
@@ -33,7 +33,7 @@ export class TranslateService {
   }
 
   public hasLanguage(key: string): boolean{
-    let keySet = new Set(Object.keys(this.config));
+    let keySet = new Set(Object.keys(this._config));
     return keySet.has(key);
   }
 

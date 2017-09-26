@@ -5,12 +5,13 @@ var translate_config_1 = require("./translate.config");
 var flat = require("flat");
 var Rx_1 = require("rxjs/Rx");
 var TranslateService = (function () {
-    function TranslateService(config) {
+    function TranslateService(_config) {
+        this._config = _config;
         this.config = {};
         this.default = 'en';
         this.current = this.default;
-        for (var key in config) {
-            Object.defineProperty(this.config, key, { value: flat(config[key]) });
+        for (var key in this._config) {
+            Object.defineProperty(this.config, key, { value: flat(this._config[key]) });
         }
     }
     TranslateService.prototype.setDefault = function (lang) {
@@ -30,7 +31,7 @@ var TranslateService = (function () {
         }
     };
     TranslateService.prototype.hasLanguage = function (key) {
-        var keySet = new Set(Object.keys(this.config));
+        var keySet = new Set(Object.keys(this._config));
         return keySet.has(key);
     };
     TranslateService.prototype.instance = function (key, param) {
