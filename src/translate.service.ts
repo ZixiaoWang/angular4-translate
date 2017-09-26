@@ -32,6 +32,11 @@ export class TranslateService {
     }
   }
 
+  public hasLanguage(key: string): boolean{
+    let keySet = new Set(Object.keys(this.config));
+    return keySet.has(key);
+  }
+
   public instance(key: string, param?: any){
     if(param){
       return this.searchByKeyWithParams(key, param);
